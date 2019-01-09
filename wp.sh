@@ -3,8 +3,8 @@ clear
 echo "============================================"
 echo "WordPress Install Script"
 echo "============================================"
-echo "WordPress owner: "
-read -e wpowner
+#echo "WordPress owner: "
+#read -e wpowner
 echo "Database Name: "
 read -e dbname
 echo "Database User: "
@@ -13,7 +13,7 @@ echo "Database Password: "
 stty -echo
 read -e dbpass
 stty echo
-echo "run install? (y/n)"
+echo "Your current dir is $PWD.Continue? (y/n)"
 read -e run
 if [ "$run" == n ] ; then
 exit
@@ -40,6 +40,7 @@ perl -pi -e "s/database_name_here/$dbname/g" wp-config.php
 perl -pi -e "s/username_here/$dbuser/g" wp-config.php
 perl -pi -e "s/password_here/$dbpass/g" wp-config.php
 #create uploads folder and set permissions
+wpowner=`stat -c %U .`
 chown -R $wpowner:$wpowner $PWD
 mkdir wp-content/uploads
 chmod 777 wp-content/uploads
