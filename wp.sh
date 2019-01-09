@@ -13,7 +13,15 @@ echo "Database Password: "
 stty -echo
 read -e dbpass
 stty echo
-echo "Your current dir is $PWD.Continue? (y/n)"
+DIR=../www
+DIR2=../html
+if [ -d $DIR ] || [ -d $DIR2 ] ; then
+   echo "Current dir is $PWD. All looks fine"
+else
+   echo "Current dir is $PWD. You must be in the root directory like www or public_html" 
+exit
+fi
+echo "Continue? (y/n)"
 read -e run
 if [ "$run" == n ] ; then
 exit
