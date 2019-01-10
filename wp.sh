@@ -13,6 +13,9 @@ mysql -e "CREATE DATABASE ${dbname} /*\!40100 DEFAULT CHARACTER SET utf8 */;"
 mysql -e "CREATE USER ${dbuser}@localhost IDENTIFIED BY '${dbpass}';"
 mysql -e "GRANT ALL PRIVILEGES ON ${dbname}.* TO '${dbuser}'@'localhost';"
 mysql -e "FLUSH PRIVILEGES;"
+echo "============================================"
+echo "MySQL - OK"
+echo "============================================"
 stty echo
 DIR=../www
 DIR2=../html
@@ -28,7 +31,7 @@ if [ "$run" == n ] ; then
 exit
 else
 echo "============================================"
-echo "A robot is now installing WordPress for you."
+echo "Domains - OK."
 echo "============================================"
 #download wordpress
 curl -O https://wordpress.org/latest.tar.gz
