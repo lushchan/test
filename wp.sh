@@ -1,7 +1,7 @@
 #!/bin/bash -e
 clear
 echo "============================================"
-echo "WordPress Install"
+echo "MYSQL credentials is bellow"
 echo "============================================"
 dbname=wp`echo $PWD | cut -d / -f 4| sed -e 's/-/_/g'|sed 's|\.||g'`
 dbuser=wpu`echo $PWD | cut -d / -f 4|cut -c 1-13 | sed 's|-|_|g'|sed 's|\.||g'`
@@ -14,7 +14,7 @@ mysql -e "CREATE USER ${dbuser}@localhost IDENTIFIED BY '${dbpass}';"
 mysql -e "GRANT ALL PRIVILEGES ON ${dbname}.* TO '${dbuser}'@'localhost';"
 mysql -e "FLUSH PRIVILEGES;"
 echo "============================================"
-echo "Please save MYSQL credentials"
+echo "Install WordPress"
 echo "============================================"
 stty echo
 #typical root-dirs
