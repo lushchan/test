@@ -3,15 +3,16 @@ clear
 echo "============================================"
 echo "WordPress Install Script"
 echo "============================================"
-#echo "WordPress owner: "
-#read -e wpowner
-echo "Database Name: "
-read -e dbname
-echo "Database User: "
-read -e dbuser
-echo "Database Password: "
-stty -echo
-read -e dbpass
+dbname=wp`echo $PWD | cut -d / -f 4|cut -c 1-14 | sed 's|-|_|'|sed 's|\.||'`
+dbuser=wpu`echo $PWD | cut -d / -f 4|cut -c 1-13 | sed 's|-|_|'|sed 's|\.||'`
+dbpass=`pwgen 12 1`
+echo "Database Name: $dbname "
+echo "Database User: $dbuser"
+echo "Database Password: $dbpass "
+mysql -e "CREATE DATABASE ${dbname} /*\!40100 DEFAULT CHARACTER SET utf8 */;"
+mysql -e "CREATE USER ${dbuser}@localhost IDENTIFIED BY '${dbpass}';"
+mysql -e "GRANT ALL PRIVILEGES ON ${dbname}.* TO '${dbuser}'@'localhost';"
+mysql -e "FLUSH PRIVILEGES;"
 stty echo
 DIR=../www
 DIR2=../html
