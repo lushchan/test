@@ -1,10 +1,10 @@
 #!/bin/bash -e
 clear
 echo "============================================"
-echo "WordPress Install Script."
+echo "WordPress Install"
 echo "============================================"
-dbname=wp`echo $PWD | cut -d / -f 4|cut -c 1-14 | sed 's|-|_|'|sed 's|\.||'`
-dbuser=wpu`echo $PWD | cut -d / -f 4|cut -c 1-13 | sed 's|-|_|'|sed 's|\.||'`
+dbname=wp`echo $PWD | cut -d / -f 4| sed -e 's/-/_/g'|sed 's|\.||g'`
+dbuser=wpu`echo $PWD | cut -d / -f 4|cut -c 1-13 | sed 's|-|_|g'|sed 's|\.||g'`
 dbpass=`pwgen 12 1`
 echo "Database Name: $dbname "
 echo "Database User: $dbuser"
@@ -14,12 +14,14 @@ mysql -e "CREATE USER ${dbuser}@localhost IDENTIFIED BY '${dbpass}';"
 mysql -e "GRANT ALL PRIVILEGES ON ${dbname}.* TO '${dbuser}'@'localhost';"
 mysql -e "FLUSH PRIVILEGES;"
 echo "============================================"
-echo "MySQL - OK"
+echo "Please save MYSQL credentials"
 echo "============================================"
 stty echo
+#typical root-dirs
 DIR=../www
 DIR2=../html
-if [ -d $DIR ] || [ -d $DIR2 ] ; then
+DIR3=../public_html
+if [ -d $DIR ] || [ -d $DIR2 ] || [ -d $DIR3] ; then
    echo "Current dir is $PWD. All looks fine"
 else
    echo "Current dir is $PWD. You must be in the root directory like www or public_html" 
@@ -33,9 +35,8 @@ else
 echo "============================================"
 echo "Domains - OK."
 echo "============================================"
-#download wordpress
+#download & untar
 curl -O https://wordpress.org/latest.tar.gz
-#unzip wordpress
 tar -zxvf latest.tar.gz
 #change dir to wordpress
 cd wordpress
@@ -47,7 +48,6 @@ cd ..
 rm -R wordpress
 #create wp config
 cp wp-config-sample.php wp-config.php
-#set database details with perl find and replace
 perl -pi -e "s/database_name_here/$dbname/g" wp-config.php
 perl -pi -e "s/username_here/$dbuser/g" wp-config.php
 perl -pi -e "s/password_here/$dbpass/g" wp-config.php
@@ -57,9 +57,8 @@ chown -R $wpowner:$wpowner $PWD
 mkdir wp-content/uploads
 chmod 777 wp-content/uploads
 echo 'php_flag engine off' >> wp-content/uploads/.htaccess
-#remove zip file
+#clean
 rm latest.tar.gz
-#remove bash script
 rm wp.sh
 echo "========================="
 echo "Installation is complete."
