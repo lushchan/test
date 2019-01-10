@@ -1,7 +1,7 @@
 #!/bin/bash -e
 clear
 echo "============================================"
-echo "WordPress Install Script"
+echo "WordPress Install Script."
 echo "============================================"
 dbname=wp`echo $PWD | cut -d / -f 4|cut -c 1-14 | sed 's|-|_|'|sed 's|\.||'`
 dbuser=wpu`echo $PWD | cut -d / -f 4|cut -c 1-13 | sed 's|-|_|'|sed 's|\.||'`
