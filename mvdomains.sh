@@ -1,6 +1,9 @@
 #!/bin/bash
+clear
 vim list
-cat /etc/redhat-release
+echo "============================================"
+echo "Your OS is" `cat /etc/redhat-release`
+echo "============================================"
 ####CREATE DIRS#####
 dir=''
 while [ "$dir" = "" ]; do
@@ -14,6 +17,9 @@ while [ "$dir" = "" ]; do
         mkdir -p /home/support/lmr/$dir/sql/
     fi
 done
+echo "================================================================================"
+echo "Backup dirs `dir /home/support/lmr/$dir` created in your home dir"
+echo "================================================================================"
 ####MOVE ACTIONS#######
 cat ./list | while read domain
 do
@@ -23,7 +29,14 @@ mv /etc/nginx/vhosts.d/*/$domain\.conf /home/support/lmr/$dir/nginx/
 ####CHECK WP DATABASES###
 grep DB_NAME /home/*/$domain/www/wp-config.php | sed "s/define('DB_NAME', '//g" | sed "s/');.*//g" | sed "s/.*\.php://g" > sqlist
 done
+echo "============================================"
+echo "List of finded databases:"
+echo `cat ./sqlist`
+echo "============================================"
 cat ./sqlist | while read sqlist
 do
 mysqldump --routines --events --lock-tables $sqlist > /home/support/lmr/$dir/sql/$sqlist\.sql
 done
+echo "============================================"
+echo "DONE"
+echo "============================================"
