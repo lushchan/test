@@ -1,11 +1,13 @@
 # wordpressinstaller
 WordPress autoinstaller
 
-Run:
+# **Run: **
+
 Just run this script from root directory of domain
 
 
-Notes:
+## **Notes: **
+
 pwgen required(apt install pwgen \\ yum install pwgen)
 
 File structure mus be like this /home/username/domain.com/
