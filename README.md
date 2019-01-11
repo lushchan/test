@@ -15,3 +15,5 @@ File structure mus be like this `/home/username/domain.com/`
 Root directory must be `www/html/public_html`
 
 Database user name skiped or replaced specific characters like `"-","."`
+
+MySQL root password must be saved in `~/.my.cnf` [WHAT???](https://stackoverflow.com/questions/16299603/mysql-utilities-my-cnf-option-file)
