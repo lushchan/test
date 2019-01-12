@@ -1,5 +1,4 @@
 #!/bin/bash -e
-echo "Please choice param -m for manual mode or -f for automatic"
 while [ -n "$1" ]
 do
 case "$1" in
@@ -15,35 +14,7 @@ read -e dbuser
 echo "Database Password: "
 stty -echo
 read -e dbpass
-stty echo
-echo "run install? (y/n)"
-read -e run
-if [ "$run" == n ] ; then
-exit
-else
-echo "============================================"
-echo "Downloading"
-echo "============================================"
-curl -O https://wordpress.org/latest.tar.gz
-tar -zxvf latest.tar.gz
-cd wordpress
-cp -rf . ..
-cd ..
-rm -R wordpress
-cp wp-config-sample.php wp-config.php
-perl -pi -e "s/database_name_here/$dbname/g" wp-config.php
-perl -pi -e "s/username_here/$dbuser/g" wp-config.php
-perl -pi -e "s/password_here/$dbpass/g" wp-config.php
-mkdir wp-content/uploads
-chmod 777 wp-content/uploads
-echo 'php_flag engine off' >> wp-content/uploads/.htaccess
-rm latest.tar.gz
-rm wp.sh
-echo "========================="
-echo "Installation is complete."
-echo "========================="
-fi
-exit;;
+stty echo;;
 -f)
 clear
 echo "============================================"
@@ -56,6 +27,12 @@ mysql -e "CREATE DATABASE ${dbname} /*\!40100 DEFAULT CHARACTER SET utf8 */;"
 mysql -e "CREATE USER ${dbuser}@localhost IDENTIFIED BY '${dbpass}';"
 mysql -e "GRANT ALL PRIVILEGES ON ${dbname}.* TO '${dbuser}'@'localhost';"
 mysql -e "FLUSH PRIVILEGES;"
+;;
+*) echo "$1 is not an option" 
+exit;;
+esac  
+shift
+done
 echo "============================================"
 echo "Install WordPress"
 echo "============================================"
@@ -101,8 +78,4 @@ echo "Database User: $dbuser "
 echo "Database Password: $dbpass "
 echo "========================="
 fi
-exit;;
-*) echo "$1 is not an option" ;;
-esac
-shift
-done                                                                                                                                                                                          108,1         Bo
+exit
