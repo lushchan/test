@@ -5,6 +5,10 @@ WordPress autoinstaller
 
 Just run this script from root directory of domain
 
+# params:
+`-m - for manual mode`
+
+`-f - automatic mode`
 
 ## Notes: 
 
