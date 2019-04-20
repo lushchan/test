@@ -52,7 +52,6 @@ if [ -d $DIR ] || [ -d $DIR2 ] || [ -d $DIR3 ]; then
    echo "Current dir is $PWD. All looks fine"
 else
    echo "Current dir is $PWD. You must be in the root directory like www or public_html" 
-exit
 fi
 echo "Continue? (y/n)"
 read -e run
