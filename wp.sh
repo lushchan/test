@@ -42,7 +42,7 @@ esac
 shift
 done
 echo "============================================"
-echo "Install WordPress"
+echo "Install WordPress."
 echo "============================================"
 stty echo
 DIR=../www
