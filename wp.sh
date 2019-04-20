@@ -1,4 +1,12 @@
 #!/bin/bash -e
+if [[ -z $1 ]]; then
+echo "Error: input parameter expected"
+echo "Usage: 
+-m - manual mode
+-f - automatic mode
+README - https://github.com/lushchan/wordpressinstaller/blob/master/README.md"
+exit
+fi
 while [ -n "$1" ]
 do
 case "$1" in
