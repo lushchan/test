@@ -48,7 +48,7 @@ stty echo
 DIR=../www
 DIR2=../html
 DIR3=../public_html
-if [ -d $DIR ] || [ -d $DIR2 ] || [ -d $DIR3] ; then
+if [ -d $DIR ] || [ -d $DIR2 ] || [ -d $DIR3 ]; then
    echo "Current dir is $PWD. All looks fine"
 else
    echo "Current dir is $PWD. You must be in the root directory like www or public_html" 
