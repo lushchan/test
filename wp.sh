@@ -1,4 +1,12 @@
 #!/bin/bash -e
+if [[ -z $1 ]]; then
+echo "Error: input parameter expected"
+echo "Usage: 
+-m - manual mode
+-f - automatic mode
+README - https://github.com/lushchan/wordpressinstaller/blob/master/README.md"
+exit
+fi
 while [ -n "$1" ]
 do
 case "$1" in
@@ -28,7 +36,7 @@ mysql -e "CREATE USER ${dbuser}@localhost IDENTIFIED BY '${dbpass}';"
 mysql -e "GRANT ALL PRIVILEGES ON ${dbname}.* TO '${dbuser}'@'localhost';"
 mysql -e "FLUSH PRIVILEGES;"
 ;;
-*) echo "$1 is not an option" 
+*) echo "$1 - unknown parametr" 
 exit;;
 esac  
 shift
