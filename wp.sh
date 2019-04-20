@@ -1,6 +1,6 @@
 #!/bin/bash -e
 if [[ -z $1 ]]; then
-echo "Error!!!: input parameter expected!"
+echo "Error: input parameter expected!"
 echo "Usage: 
 -m - manual mode
 -f - automatic mode
