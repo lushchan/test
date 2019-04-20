@@ -36,7 +36,7 @@ mysql -e "CREATE USER ${dbuser}@localhost IDENTIFIED BY '${dbpass}';"
 mysql -e "GRANT ALL PRIVILEGES ON ${dbname}.* TO '${dbuser}'@'localhost';"
 mysql -e "FLUSH PRIVILEGES;"
 ;;
-*) echo "$1 is not an option" 
+*) echo "$1 - unknown parametr" 
 exit;;
 esac  
 shift
