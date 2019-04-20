@@ -15,7 +15,9 @@ Just run this script from root directory of domain
 Manual input database credentials
 ## Automatic mode(-f):
 Auto create database, user and password from current path
+
 examples:
+
 `if path /home/ftpaccess/domain.com/www/`
 
 `database name: wpdomaincom`
