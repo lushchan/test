@@ -30,7 +30,8 @@ fi
       echo "============================================"
       dbname=wp`echo $PWD | cut -d / -f 4| sed -e 's/-/_/g'|sed 's|\.||g'`
       dbuser=wpu`echo $PWD | cut -d / -f 4|cut -c 1-13 | sed 's|-|_|g'|sed 's|\.||g'`
-      dbpass=`pwgen 12 1`
+      dbpass=`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-16};echo;`
+#      dbpass=`pwgen 12 1`
       mysql -e "CREATE DATABASE ${dbname} /*\!40100 DEFAULT CHARACTER SET utf8 */;"
       mysql -e "CREATE USER ${dbuser}@localhost IDENTIFIED BY '${dbpass}';"
       mysql -e "GRANT ALL PRIVILEGES ON ${dbname}.* TO '${dbuser}'@'localhost';"
