@@ -29,8 +29,6 @@ examples:
 
 ## Notes: 
 
-pwgen required(`apt install pwgen \\ yum install pwgen`)
-
 File structure mus be like this `/home/username/domain.com/`
 
 Document root must be like `www/html/public_html`
