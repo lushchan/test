@@ -22,10 +22,6 @@ examples:
 
 ## Notes: 
 
-File structure mus be like this `/home/username/domain.com/`
-
-Document root must be like `www/html/public_html`
-
 Database user name skiped or replaced specific characters like `"-","."`
 
 MySQL root password must be saved in `~/.my.cnf` [WHAT???](https://ruhighload.com/my.cnf)
