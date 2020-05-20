@@ -36,13 +36,14 @@ docroot=$(grep -r "$domain" /etc/nginx/ | grep root | awk '{print $(NF-1), $NF}'
       dbname=wp`echo $docroot | cut -d / -f 4| sed -e 's/-/_/g'|sed 's|\.||g'`
       dbuser=wpu`echo $docroot | cut -d / -f 4|cut -c 1-13 | sed 's|-|_|g'|sed 's|\.||g'`
       dbpass=`head /dev/urandom | tr -dc A-Za-z0-9 | head -c 13`
+      echo "CREATE DATABASE ${dbname} /*\!40100 DEFAULT CHARACTER SET utf8 */;"
       mysql -e "CREATE DATABASE ${dbname} /*\!40100 DEFAULT CHARACTER SET utf8 */;"
+      echo "CREATE USER ${dbuser}@localhost IDENTIFIED BY '${dbpass}';"
       mysql -e "CREATE USER ${dbuser}@localhost IDENTIFIED BY '${dbpass}';"
+      echo "GRANT ALL PRIVILEGES ON ${dbname}.* TO '${dbuser}'@'localhost';"
       mysql -e "GRANT ALL PRIVILEGES ON ${dbname}.* TO '${dbuser}'@'localhost';"
       mysql -e "FLUSH PRIVILEGES;"
       ;;
-   *) echo "$1 - unknown parametr" 
-exit;;
 esac  
 shift
 done
@@ -50,27 +51,21 @@ echo "============================================"
 echo "Install WordPress."
 echo "============================================"
 stty echo
-echo "Continue? (y/n)"
-read -e run
-if [ "$run" == n ] ; then
-exit
-else
    echo "============================================"
    echo "Domains - OK. Downloading" 
    echo "============================================"
    curl -O https://wordpress.org/latest.tar.gz
    tar -zxvf ./latest.tar.gz --strip 1 -C $docroot
    rm ./latest.tar.gz
-   cp wp-config-sample.php wp-config.php
+   cp $docroot/wp-config-sample.php $docroot/wp-config.php
    perl -pi -e "s/database_name_here/$dbname/g" $docroot/wp-config.php
    perl -pi -e "s/username_here/$dbuser/g" $docroot/wp-config.php
    perl -pi -e "s/password_here/$dbpass/g" $docroot/wp-config.php
-   wpowner=`stat -c %U .`
+   wpowner=`stat -c %U $docroot`
    chown -R $wpowner:$wpowner $docroot
    mkdir $docroot/wp-content/uploads
    chmod 777 $docroot/wp-content/uploads
    echo 'php_flag engine off' >> $docroot/wp-content/uploads/.htaccess
-   rm latest.tar.gz
    rm wp.sh
    echo "==========================================================================="
    echo "Installed to $docroot"
@@ -81,6 +76,4 @@ else
    echo "dbUser: $dbuser"
    echo "dbPassword: $dbpass"
    echo "==========================================================================="
-
-fi
 exit
