@@ -1,20 +1,15 @@
 ## wordpressinstaller
 WordPress autoinstaller
 
-## Run: 
+## Run params:
+`-m domain.com - for manual mode`
 
-Just run this script from root directory of domain
+`-f domain.com - automatic mode`
 
-## params:
-`-m - for manual mode`
-
-`-f - automatic mode`
-
-#
 ## Manual mode(-m):
 Manual input database credentials
 ## Automatic mode(-f):
-Auto create database, user and password from current path
+Auto create database, user and password from document root path
 
 examples:
 
